@@ -1,6 +1,6 @@
 ----Main Code:-------------------------------------------
 LIBRARY ieee;
-USE ieee.std_logic_1164.all;
+USE ieee.std_logic_1164.all; 
 ---------------------------------------------------------
 ENTITY dvi_flag IS
 	PORT(
@@ -9,8 +9,7 @@ ENTITY dvi_flag IS
         tmds0a, tmds0b: BUFFER STD_LOGIC;   -- TMDS0+ and TMDS0-
         tmds1a, tmds1b: BUFFER STD_LOGIC;   -- TMDS1+ and TMDS1-
         tmds2a, tmds2b: BUFFER STD_LOGIC;   -- TMDS2+ and TMDS2-
-        tmds_clka, tmds_clkb: OUT STD_LOGIC;
-        clk500_out: OUT STD_LOGIC);   -- TMDS_clk+ and TMDS_clk-
+        tmds_clka, tmds_clkb: OUT STD_LOGIC);   -- TMDS_clk+ and TMDS_clk-
 END dvi_flag;
 ---------------------------------------------------------
 ARCHITECTURE dvi OF dvi_flag IS
@@ -78,7 +77,6 @@ BEGIN
     tmds2b <= NOT tmds2a;
     tmds_clka <= clk50;
     tmds_clkb <= NOT clk50;
-    clk500_out <= Hactive;
 END dvi;
 ---------------------------------------------------------
     

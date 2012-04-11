@@ -14,9 +14,9 @@ BEGIN
     PROCESS (clk50, Hsync, dena)
         VARIABLE x: INTEGER RANGE 0 TO 1024;
         VARIABLE y: INTEGER RANGE 0 TO 768;
-        --VARIABLE red: STD_LOGIC;
-        --VARIABLE green: STD_LOGIC;
-        --VARIABLE blue: STD_LOGIC;
+        VARIABLE red: STD_LOGIC;
+        VARIABLE green: STD_LOGIC;
+        VARIABLE blue: STD_LOGIC;
     BEGIN
         --Count columns:--------------
         IF (clk50'EVENT AND clk50='1') THEN
@@ -32,27 +32,27 @@ BEGIN
         END IF;
         --Generate the image:---------
         IF (dena='1') THEN
-            R <= (OTHERS => '0');
-            G <= (OTHERS => '0');
-            B <= (OTHERS => '0');
+            red := '0';
+            green := '0';
+            blue := '0';
             ----Blue Control-------------
             IF ((x<=409 AND y<=286) OR (x>409 AND ((y>40 AND y<=81) OR (y>122 AND y<=163) OR(y>204 AND y<=245))) OR 
             (y>286 AND y<=327) OR (y>368 AND y<=409) OR (y>450 AND y<=491)) THEN
                 IF(blue_switch='1') THEN
-                   B  <= (OTHERS => '1');
+                   blue  := '1';
                 END IF;
             END IF;
             ----Green Control----------------
             IF ((x>409 AND ((y>40 AND y<=81) OR (y>122 AND y<=163) OR (y>204 AND y<=245))) OR 
             (y>286 AND y<=327) OR (y>368 AND y<=409) OR (y>450 AND y<=491)) THEN
                 IF(green_switch='1') THEN
-                    G <= (OTHERS => '1');
+                    green := '1';
                 END IF;
             END IF;
             ----Red Control-----------------
             IF ((x>409 AND y>286)) THEN
                 IF(red_switch='1') THEN
-                    R <= (OTHERS => '1');
+                    red := '1';
                 END IF;
             END IF;
             ----50 Stars--------------------
@@ -74,20 +74,20 @@ BEGIN
             ----Eighth Row--------------------
             (((x-68)**2+(y-232)**2)<=256) OR (((x-136)**2+(y-232)**2)<=256) OR (((x-204)**2+(y-232)**2)<=256) OR (((x-272)**2+(y-232)**2)<=256) OR (((x-340)**2+(y-232)**2)<=256)) THEN
                 IF(red_switch='1') THEN
-                    R <= (OTHERS => '1');
+                    red := '1';
                 END IF;
                 IF(green_switch='1') THEN
-                    R <= (OTHERS => '1');
+                    green := '1';
                 END IF;
             END IF;            
         ELSE
-            R <= (OTHERS => '0');
-            G <= (OTHERS => '0');
-            B <= (OTHERS => '0');
+            red := '0';
+            green := '0';
+            blue := '0';
         END IF;
-        --R <= (OTHERS => red);
-        --G <= (OTHERS => green);
-        --B <= (OTHERS => blue);
+        R <= (OTHERS => red);
+        G <= (OTHERS => green);
+        B <= (OTHERS => blue);
     END PROCESS;
 END image_generator;
 --------------------------------------------------------------
